@@ -42,6 +42,18 @@
 </template>
 
 <style scoped>
+summary {
+  cursor: pointer;
+}
+
+input {
+  cursor: pointer;
+}
+
+label {
+  cursor: pointer;
+}
+
 .month {
   grid-column: month;
   grid-row: 1 / span 8;
@@ -229,7 +241,10 @@ export default {
          * get the selected calendars, or default to "US"
          */
         let cals = ["US"];
-        if (storageAvailable("localStorage")) {
+        if (
+          storageAvailable("localStorage") &&
+          localStorage.getItem("calendars") !== null
+        ) {
           cals = JSON.parse(localStorage.getItem("calendars"));
         }
         return transform_arr_to_obj(cals);
