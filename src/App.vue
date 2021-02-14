@@ -190,7 +190,7 @@ const getDateData = (v, holidays, cache) => {
     }),
     isWeekend: v.getDay() === 0 || v.getDay() === 6,
     number: v.getDate(),
-    isCurrentDate: v.getDate() === today,
+    isCurrentDate: v.getDate() === today.getDate(),
     holiday: holidayExisted ? holidayExisted.name : "",
   };
 };
