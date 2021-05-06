@@ -63,7 +63,7 @@ describe("Date logic/display", () => {
 
     it('Has all the right calendar entries', () => {
       cy.get('.month').should('have.text', 'Feb');
-      cy.get('.wrapper > :nth-child(54)').should('have.text', "Valentine's Day");
+      cy.contains("Valentine's Day");
     });
 
     it('Shows all calendar entries', () => {
