@@ -69,7 +69,7 @@ label {
 
 /* this should contain multiple settings, if there is such a thing */
 .settings {
-  grid-row: span 20;
+  grid-row: span 23;
 }
 
 /* this should be the parent of the labels/inputs */
@@ -175,11 +175,10 @@ const memoizeHolidayExists = (date, holidays, cache) => {
   return holidayExisted;
 };
 
-const getDaysInMonth = () => {
+const getDaysInMonth = (today = new Date()) => {
   /**
    * Returns days in this month
    */
-  const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth();
   const length = new Date(year, month + 1, 0).getDate(); // save on space
@@ -189,11 +188,10 @@ const getDaysInMonth = () => {
     .filter((v) => v.getMonth() === month);
 };
 
-const getDateData = (v, holidays, cache) => {
+const getDateData = (v, holidays, cache, today = new Date()) => {
   /**
    * Generates data to be consumed by day.vue
    */
-  const today = new Date();
   // perform this computation once because its expensive.
   const holidayExisted = memoizeHolidayExists(v, holidays, cache);
   return {
@@ -233,6 +231,7 @@ export default {
       // list of calendars to expose to the user to select
       calendars: Object.keys(new Holidays().getCountries()),
       // name of the month, short form, for the top left corner
+      today: today.toISOString(),
       month_short: today.toLocaleDateString(navigator.languages, {
         month: "short",
       }),
@@ -258,8 +257,8 @@ export default {
   computed: {
     dates: function () {
       // the arrow is required to rebind `this` to the Vue object.
-      return getDaysInMonth().map((x) =>
-        getDateData(x, this.holidays, this.cache)
+      return getDaysInMonth(new Date(this.today)).map((x) =>
+        getDateData(x, this.holidays, this.cache, new Date(this.today))
       );
     },
     language: function () {
