@@ -1,0 +1,9 @@
+{
+  "video": false,
+  "fixturesFolder": false,
+  "pluginsFile": false,
+  "supportFile": false,
+  "baseUrl": "http://localhost:8080",
+  "viewportHeight": 1000,
+  "viewportWidth": 600
+}
